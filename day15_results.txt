@@ -1,0 +1,20 @@
+DAY 15 - LOGISTIC REGRESSION CLASSIFICATION
+============================================
+
+Feature: name_length
+Target: Pass / Fail
+
+Accuracy: 0.5000
+Precision: 0.5000
+Recall: 1.0000
+F1 Score: 0.6667
+
+True Negatives: 0
+False Positives: 1
+False Negatives: 0
+True Positives: 1
+
+REAL-WORLD IMPLICATIONS
+-----------------------
+False positives can lead to unnecessary student interventions.
+False negatives can cause students who need support to be overlooked.

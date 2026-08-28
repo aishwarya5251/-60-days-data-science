@@ -5,59 +5,37 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
-
-
-# ============================================================
 # 1. LOAD DATA
-# ============================================================
-
 movies = pd.read_csv("movies.csv")
 ratings = pd.read_csv("ratings.csv")
-
 print("\n========== DATA LOADED ==========")
 print("Movies shape:", movies.shape)
 print("Ratings shape:", ratings.shape)
-
 print("\nMovies:")
 print(movies.head())
-
 print("\nRatings:")
 print(ratings.head())
 
-
-# ============================================================
 # 2. RENAME COLUMNS
-# ============================================================
-
 movies = movies.rename(columns={
     "movieId": "movie_id"
 })
-
 ratings = ratings.rename(columns={
     "userId": "user_id",
     "movieId": "movie_id"
 })
 
-
-# ============================================================
 # 3. CREATE MOVIE ID <-> TITLE MAPPING
-# ============================================================
-
 title_to_id = dict(
     zip(movies["title"], movies["movie_id"])
 )
-
 id_to_title = dict(
     zip(movies["movie_id"], movies["title"])
 )
 
 
-# ============================================================
 # 4. CONTENT-BASED KNN
-# ============================================================
-
 print("\n========== CONTENT-BASED KNN ==========")
-
 mlb = MultiLabelBinarizer()
 
 genre_matrix = mlb.fit_transform(
@@ -65,8 +43,6 @@ genre_matrix = mlb.fit_transform(
 )
 
 print("Genre matrix shape:", genre_matrix.shape)
-
-
 def content_based_recommend(title, k=5):
 
     if title not in title_to_id:
@@ -129,11 +105,7 @@ print(
     )
 )
 
-
-# ============================================================
 # 5. TRAIN / TEST SPLIT
-# ============================================================
-
 print("\n========== TRAIN / TEST SPLIT ==========")
 
 train, test = train_test_split(
@@ -373,11 +345,7 @@ for k in K_VALUES:
         )
     })
 
-
-# ============================================================
 # 10. RESULTS TABLE
-# ============================================================
-
 results_df = pd.DataFrame(
     results
 )
@@ -386,10 +354,7 @@ print("\n========== RESULTS ==========")
 
 print(results_df.to_string(index=False))
 
-
-# ============================================================
 # 11. FIND BEST K
-# ============================================================
 
 best_mae = results_df.loc[
     results_df["MAE"].idxmin()
@@ -403,9 +368,7 @@ best_precision = results_df.loc[
     results_df["Precision"].idxmax()
 ]
 
-
 print("\n========== BEST K ==========")
-
 print(
     "Best K according to MAE:",
     int(best_mae["K"])
@@ -421,11 +384,7 @@ print(
     int(best_precision["K"])
 )
 
-
-# ============================================================
 # 12. FINAL RECOMMENDATION
-# ============================================================
-
 best_k = int(
     best_rmse["K"]
 )
@@ -434,11 +393,7 @@ print(
     f"\nUsing K = {best_k} for final recommendations."
 )
 
-
-# ============================================================
 # 13. COLLABORATIVE FILTERING RECOMMENDATION
-# ============================================================
-
 def cf_recommend(title, k=5):
 
     if title not in title_to_id:
@@ -515,18 +470,13 @@ def cf_recommend(title, k=5):
     return pd.DataFrame(
         recommendations
     )
-
-
 print(
     "\n========== FINAL RECOMMENDATIONS =========="
 )
-
 print(
     cf_recommend(
         "Toy Story (1995)",
         k=best_k
     )
 )
-
-
 print("\n========== PROGRAM COMPLETE ==========")

@@ -1,0 +1,18 @@
+DAY 17 - LOAN APPROVAL PREDICTION
+==================================================
+
+Model Accuracy: 100.00%
+Training Accuracy: 100.00%
+Testing Accuracy: 100.00%
+
+FEATURE IMPORTANCE
+------------------------------
+CreditScore: 1.0000
+Age: 0.0000
+Income: 0.0000
+LoanAmount: 0.0000
+EmploymentYears: 0.0000
+
+OVERFITTING ANALYSIS
+------------------------------
+No major overfitting detected. Training and testing accuracy are relatively close.
